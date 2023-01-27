@@ -1,4 +1,4 @@
-import { Fragment, ReactNode } from "react";
+import { ReactNode } from "react";
 import type { TreeEntry } from "../toc-tree/toc-tree";
 
 const treeToReact = (
@@ -44,17 +44,14 @@ const DefaultListContainer = ({
   </ol>
 );
 
-const DefaultListItem = ({
-  name,
-  children,
-  element,
-  depth,
-}: {
+type ListItemProps = {
   children: ReactNode;
   depth: number;
   name?: string; // name is optional because top level list items have no names and contain other lists
   element?: Element;
-}) => (
+};
+
+const DefaultListItem = ({ name, children, element }: ListItemProps) => (
   <li key={name}>
     {name ? (
       <a

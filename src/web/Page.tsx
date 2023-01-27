@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
 export const Page = ({ registerSection }: { registerSection: any }) => {
   const [someCondition, setSomeCondition] = useState(false);

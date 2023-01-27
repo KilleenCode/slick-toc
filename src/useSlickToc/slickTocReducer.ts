@@ -10,14 +10,16 @@ export type NodeInfo = {
 };
 export const reducer: Reducer<NodeInfo[], Actions> = (state, { type }) => {
     switch (type) {
-        case "getNodes":
+        case "getNodes": {
             const nodes = getNodes();
             console.log(nodes);
             if (nodes.length !== state.length) {
                 return nodes;
             }
             return state;
-        default:
+        }
+        default: {
             return state;
+        }
     }
 };
