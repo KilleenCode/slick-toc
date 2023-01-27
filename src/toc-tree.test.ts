@@ -1,7 +1,7 @@
 import { convertMapToTree, ROOT_NAME, Tree, TreeMap } from "./toc-tree/toc-tree";
 describe("Tree", () => {
     describe("Basic nesting", () => {
-        const mockHTMLElement = document.createElement("div");
+
         test("should create a tree", () => {
             const tree = new Tree("root", []);
             expect(tree.name).toBe("root");

@@ -11,7 +11,7 @@ import { reducer } from "./slickTocReducer";
 type NodeMapEntry = { parentKey?: string; element: Element };
 export type NodeMap = Map<string, NodeMapEntry>;
 
-type RegisterItem = (name: string) => {
+export type RegisterItem = (name: string) => {
   ref: (node: Element | null) => void;
 };
 

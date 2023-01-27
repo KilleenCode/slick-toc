@@ -27,9 +27,10 @@ export const getNodes = (root = document.documentElement) => {
     });
 };
 
+type Filter = (node: Element) => boolean;
 export const getParentSection = (
     node: Element,
-    filter = (node: Element) => true
+    filter: Filter = () => true
 ): Element | undefined => {
     const getParentsRecurse = (node: Element) => {
         if (node.parentElement && filter(node.parentElement)) {
