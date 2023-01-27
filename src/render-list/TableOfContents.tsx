@@ -1,12 +1,17 @@
 import { ReactNode } from "react";
 import { TreeEntry } from "../toc-tree/toc-tree";
 
-const treeToReact = (
-  treeEntries: TreeEntry[],
-  ListContainer: ListContainerType,
-  ListItem: ListItemType,
-  depth = 1
-) => {
+const treeToReact = ({
+  treeEntries,
+  ListContainer,
+  ListItem,
+  depth = 1,
+}: {
+  treeEntries: TreeEntry[];
+  ListContainer: ListContainerType;
+  ListItem: ListItemType;
+  depth?: number;
+}) => {
   const createWrapper = (hasChildren: boolean) => {
     const ListWrapperComponent = ({ children }: { children: ReactNode }) => {
       if (hasChildren) {
@@ -27,7 +32,12 @@ const treeToReact = (
     const { name, children, element } = treeEntry;
     const childrenComponents =
       children.length > 0
-        ? treeToReact(children, ListContainer, ListItem, depth + 1)
+        ? treeToReact({
+            treeEntries: children,
+            ListContainer,
+            ListItem,
+            depth: depth + 1,
+          })
         : null;
     const Wrapper = createWrapper(children.length > 0);
     return (
@@ -93,6 +103,11 @@ export const TableOfContents = ({
   ListContainer = DefaultListContainer,
   ListItem = DefaultListItem,
 }: Props) => {
-  const MyComp = treeToReact(tree.children, ListContainer, ListItem);
+  const MyComp = treeToReact({
+    treeEntries: tree.children,
+    ListContainer,
+    ListItem,
+  });
   return <nav data-slick-toc-nav>{MyComp}</nav>;
 };
+``;
