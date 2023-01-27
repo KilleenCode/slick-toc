@@ -1,3 +1,8 @@
+# Slock TOC
+<a href="https://codeclimate.com/github/KilleenCode/slick-toc/maintainability"><img src="https://api.codeclimate.com/v1/badges/182926eed34a70948fcd/maintainability" /></a>
+
+Easily generate dynamic tables of contents!
+
 ## Usage
 
 ### Basic
