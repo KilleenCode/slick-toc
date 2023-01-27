@@ -3,10 +3,30 @@ import type { TreeEntry } from "../toc-tree/toc-tree";
 
 const treeToReact = (
   treeEntries: TreeEntry[],
-  Container: typeof DefaultListContainer,
-  ListItem: typeof DefaultListItem,
+  Container: ListContainerType,
+  ListItem: ListItemType,
   depth = 1
 ) => {
+  const createWrapper = (isList: boolean) => {
+    const ListWrapperComponent = ({ children }: { children: ReactNode }) =>
+      isList ? <ListItem depth={0}>{children}</ListItem> : <>{children}</>;
+    return ListWrapperComponent;
+  };
+
+  const createListItem = (
+    depth: number,
+    name: string,
+    element: TreeEntry["element"]
+  ) => {
+    const ListComponent = ({ children }: { children: ReactNode }) => (
+      <ListItem depth={depth} name={name} element={element}>
+        {children}
+      </ListItem>
+    );
+
+    return ListComponent;
+  };
+
   const Entries = treeEntries.map((treeEntry) => {
     const { name, children, element } = treeEntry;
     const childrenComponents = treeToReact(
@@ -15,17 +35,12 @@ const treeToReact = (
       ListItem,
       depth + 1
     );
-    const isList = depth === 1 && children.length > 0;
-    const Wrapper = ({ children }: { children: ReactNode }) =>
-      isList ? <ListItem depth={0}>{children}</ListItem> : <>{children}</>;
-    const listItem = (
-      <ListItem depth={depth} name={name} element={element}>
-        <> {childrenComponents}</>
-      </ListItem>
-    );
+    const isTopLevelList = depth === 1 && children.length > 0;
+    const Wrapper = createWrapper(isTopLevelList);
+    const List = createListItem(depth, name, element);
     return (
       <Wrapper key={name}>
-        {isList ? <Container depth={depth}>{listItem}</Container> : listItem}
+        <List>{childrenComponents}</List>
       </Wrapper>
     );
   });
