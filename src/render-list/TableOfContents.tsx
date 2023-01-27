@@ -1,50 +1,44 @@
 import { ReactNode } from "react";
-import type { TreeEntry } from "../toc-tree/toc-tree";
+import { TreeEntry } from "../toc-tree/toc-tree";
 
 const treeToReact = (
   treeEntries: TreeEntry[],
-  Container: ListContainerType,
+  ListContainer: ListContainerType,
   ListItem: ListItemType,
   depth = 1
 ) => {
-  const createWrapper = (isList: boolean) => {
-    const ListWrapperComponent = ({ children }: { children: ReactNode }) =>
-      isList ? <ListItem depth={0}>{children}</ListItem> : <>{children}</>;
+  const createWrapper = (hasChildren: boolean) => {
+    const ListWrapperComponent = ({ children }: { children: ReactNode }) => {
+      if (hasChildren) {
+        return (
+          <ListItem depth={depth}>
+            <ListContainer depth={depth} data-slick-toc-depth={depth}>
+              {children}
+            </ListContainer>
+          </ListItem>
+        );
+      }
+      return <>{children}</>;
+    };
     return ListWrapperComponent;
-  };
-
-  const createListItem = (
-    depth: number,
-    name: string,
-    element: TreeEntry["element"]
-  ) => {
-    const ListComponent = ({ children }: { children: ReactNode }) => (
-      <ListItem depth={depth} name={name} element={element}>
-        {children}
-      </ListItem>
-    );
-
-    return ListComponent;
   };
 
   const Entries = treeEntries.map((treeEntry) => {
     const { name, children, element } = treeEntry;
-    const childrenComponents = treeToReact(
-      children,
-      Container,
-      ListItem,
-      depth + 1
-    );
-    const isTopLevelList = depth === 1 && children.length > 0;
-    const Wrapper = createWrapper(isTopLevelList);
-    const List = createListItem(depth, name, element);
+    const childrenComponents =
+      children.length > 0
+        ? treeToReact(children, ListContainer, ListItem, depth + 1)
+        : null;
+    const Wrapper = createWrapper(children.length > 0);
     return (
       <Wrapper key={name}>
-        <List>{childrenComponents}</List>
+        <ListItem depth={depth} name={name} element={element}>
+          {childrenComponents}
+        </ListItem>
       </Wrapper>
     );
   });
-  return <Container depth={0}>{Entries}</Container>;
+  return <ListContainer depth={depth}>{Entries}</ListContainer>;
 };
 
 const DefaultListContainer = ({
@@ -60,7 +54,7 @@ const DefaultListContainer = ({
 );
 
 type ListItemProps = {
-  children: ReactNode;
+  children?: ReactNode;
   depth: number;
   name?: string; // name is optional because top level list items have no names and contain other lists
   element?: Element;
