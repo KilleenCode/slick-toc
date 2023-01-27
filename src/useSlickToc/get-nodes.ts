@@ -1,46 +1,54 @@
 export const getNodes = (root = document.documentElement) => {
+  if (!root) return [];
+  const treeWalker = document.createTreeWalker(root, NodeFilter.SHOW_ELEMENT);
+  const nodeList: Element[] = [];
+  let currentNode = treeWalker.currentNode as Element;
 
-    if (!root) return [];
-    const treeWalker = document.createTreeWalker(root, NodeFilter.SHOW_ELEMENT);
-    const nodeList: Element[] = [];
-    let currentNode = treeWalker.currentNode as Element;
-
-    while (currentNode) {
-        if (currentNode.hasAttribute("data-slick-toc")) {
-            nodeList.push(currentNode);
-        }
-
-        currentNode = treeWalker.nextNode() as Element;
+  while (currentNode) {
+    if (currentNode.hasAttribute("data-slick-toc")) {
+      nodeList.push(currentNode);
     }
 
-    return nodeList.map((item) => {
-        const name = item.getAttribute("data-slick-toc-name");
-        if (!name) {
-            throw new Error("No name attribute on data-slick-toc element");
-        }
-        const parentKey = getParentSection(item)?.getAttribute("data-slick-toc-name");
-        return {
-            name,
-            element: item,
-            ...(parentKey ? { parentKey } : {})
-        };
-    });
+    currentNode = treeWalker.nextNode() as Element;
+  }
+
+  return nodeList.map((item) => {
+    const name = item.getAttribute("data-slick-toc-name");
+    if (!name) {
+      throw new Error("No name attribute on data-slick-toc element");
+    }
+    const parentKey = getParentSection(item)?.getAttribute(
+      "data-slick-toc-name"
+    );
+    return {
+      name,
+      element: item,
+      ...(parentKey ? { parentKey } : {}),
+    };
+  });
 };
 
 type Filter = (node: Element) => boolean;
 export const getParentSection = (
-    node: Element,
-    filter: Filter = () => true
+  node: Element,
+  filter: Filter = () => true
 ): Element | undefined => {
-    const getParentsRecurse = (node: Element) => {
-        if (node.parentElement && filter(node.parentElement)) {
-            return node.parentElement;
-        } else if (node.parentElement) {
-            getParentsRecurse(node.parentElement);
-        } else {
-            return undefined;
-        }
-    };
+  const getParentsRecurse = (node: Element) => {
+    if (node.parentElement && filter(node.parentElement)) {
+      return node.parentElement;
+    } else if (node.parentElement) {
+      getParentsRecurse(node.parentElement);
+    } else {
+      return undefined;
+    }
+  };
 
-    return getParentsRecurse(node);
+  const test = node.parentElement && filter(node.parentElement);
+  test
+    ? console.log(
+        `testtesttesttesttesttesttesttes ttesttesttesttesttesttesttesttesttesttest`
+      )
+    : console.log("false");
+
+  return getParentsRecurse(node);
 };

@@ -1,1 +1,1 @@
-export { useSlickToc } from './useSlickToc'
+export { useSlickToc } from "./useSlickToc";
