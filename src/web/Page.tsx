@@ -1,6 +1,11 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
+import { RegisterItem } from "../useSlickToc/useSlickToc";
 
-export const Page = ({ registerSection }: { registerSection: any }) => {
+export const Page = ({
+  registerSection,
+}: {
+  registerSection: RegisterItem;
+}) => {
   const [someCondition, setSomeCondition] = useState(false);
 
   return (

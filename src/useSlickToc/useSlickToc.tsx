@@ -1,25 +1,18 @@
-import { useCallback, useContext, useReducer } from "react";
+import { useReducer } from "react";
 import {
   ListContainerType,
   ListItemType,
   TableOfContents,
 } from "../render-list/TableOfContents";
 import { convertArrayToTree, TreeEntry } from "../toc-tree/toc-tree";
+import { debounce } from "../utils/debounce";
 import { reducer } from "./slickTocReducer";
 
 type NodeMapEntry = { parentKey?: string; element: Element };
 export type NodeMap = Map<string, NodeMapEntry>;
 
-type RegisterItem = (name: string) => {
+export type RegisterItem = (name: string) => {
   ref: (node: Element | null) => void;
-};
-
-const debounce = (fn: Function, ms = 0) => {
-  let timeoutId: ReturnType<typeof setTimeout>;
-  return function (this: any, ...args: any[]) {
-    clearTimeout(timeoutId);
-    timeoutId = setTimeout(() => fn.apply(this, args), ms);
-  };
 };
 
 export type ItemListItems = { name: string; element: Element }[];
