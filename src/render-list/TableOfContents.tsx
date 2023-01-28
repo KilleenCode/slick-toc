@@ -110,4 +110,3 @@ export const TableOfContents = ({
   });
   return <nav data-slick-toc-nav>{MyComp}</nav>;
 };
-``;
