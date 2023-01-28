@@ -1,5 +1,11 @@
 # slick-toc
 
+## 1.0.5
+
+### Patch Changes
+
+- 4245bd7: fix: exclude react/jsx-runtime from build output
+
 ## 1.0.4
 
 ### Patch Changes
