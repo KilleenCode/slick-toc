@@ -1,5 +1,11 @@
 # slick-toc
 
+## 1.0.4
+
+### Patch Changes
+
+- 58ca958: Update CI actions to use changeset publish instead of npm publish
+
 ## 1.0.3
 
 ### Patch Changes
