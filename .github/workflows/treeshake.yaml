@@ -1,0 +1,32 @@
+name: Release
+on:
+  pull_request:
+    types: [opened, reopened]
+    branches:
+      - main
+env:
+  CI: true
+concurrency: ${{ github.workflow }}-${{ github.ref }}
+jobs:
+  treeshake:
+    name: Tree Shake
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [16]
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v3
+      - name: install pnpm
+        run: npm i pnpm@latest -g
+      - name: Setup Node.js ${{ matrix.node-version }}.x
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: "pnpm"
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+      - name: Build
+        run: pnpm build
+      - name: Check Treeshaking
+        run: pnpx agadoo
