@@ -1,4 +1,5 @@
 # Slick TOC
+
 <a href="https://codeclimate.com/github/KilleenCode/slick-toc/maintainability"><img src="https://api.codeclimate.com/v1/badges/182926eed34a70948fcd/maintainability" /></a>
 
 Easily generate dynamic tables of contents!
@@ -62,3 +63,7 @@ const App = () => {
 - `npm i -g pnpm`
 - `pnpm i`
 - `pnpm dev`
+
+### Changesets
+
+Generate [changesets](https://github.com/changesets/changesets) with `pnpm changeset`
