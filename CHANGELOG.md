@@ -1,5 +1,11 @@
 # slick-toc
 
+## 1.0.6
+
+### Patch Changes
+
+- bbcdaa8: Set package.json sideEffects false
+
 ## 1.0.5
 
 ### Patch Changes
