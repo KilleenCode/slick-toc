@@ -21,8 +21,7 @@
     "preview": "vite preview",
     "format": "pnpm prettier --write . --ignore-path .gitignore",
     "lint": "pnpm eslint . --ignore-path .gitignore",
-    "publish": "pnpm build && changeset publish",
-    "ci:publish": "pnpm publish -r"
+    "ci:publish": "pnpm build && changeset publish"
   },
   "peerDependencies": {
     "react": "^18.2.0",
