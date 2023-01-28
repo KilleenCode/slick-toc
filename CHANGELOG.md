@@ -1,5 +1,11 @@
 # slick-toc
 
+## 1.0.7
+
+### Patch Changes
+
+- 9609020: fix: correct value for package.json sideEffects
+
 ## 1.0.6
 
 ### Patch Changes
