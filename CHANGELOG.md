@@ -1,5 +1,11 @@
 # slick-toc
 
+## 1.0.2
+
+### Patch Changes
+
+- 3ae84a9: empty release
+
 ## 1.0.1
 
 ### Patch Changes
